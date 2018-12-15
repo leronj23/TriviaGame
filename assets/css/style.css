@@ -40,9 +40,19 @@ body {
     padding: 10px;
     text-align: center;
     color: black;
-    
 }
 
 #startBtn:hover {
     color: #1825ff;
+    cursor: pointer;
+}
+
+/* #questions {
+    font-weight: bold;
+    font-size: 20px;
+} */
+
+#question {
+    font-weight: bold;
+    font-size: 18px;
 }
