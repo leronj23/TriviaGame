@@ -1,4 +1,48 @@
 body {
-
     background-image: url("../images/question-mark-background-vector.jpg");
+    height: 100%;
+    width: 100%;
+}
+
+#triviaBox {
+    position: absolute;
+    background-color: #fff17a;
+    border-style: solid;
+    border-width: 2px;
+    width: 800px;
+    height: 500px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-weight: bold;
+    font-size: 60px;
+    padding-top: 30px;
+    text-align: center;
+    color: #1825ff;
+}
+
+#startBtn {
+    position: absolute;
+    background-color: #ffccd1;
+    border-style: solid;
+    border-width: 2px;
+    width: 300px;
+    height: 50px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-weight: bold;
+    font-size: 40px;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    
+}
+
+#startBtn:hover {
+    color: #1825ff;
 }
