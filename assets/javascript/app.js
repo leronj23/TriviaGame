@@ -1,5 +1,8 @@
 $(document).ready(function () {
 
+    // Hide Question Div
+    $("#questions").hide();
+
     // Start button click
     $("#startBtn").click(function () {
 
@@ -10,54 +13,69 @@ $(document).ready(function () {
         loadTrivia();
     });
 
+    // Timer
+    var count = 30;
+    var counter = 0;
+
     // Load Trivia Questions
     function loadTrivia() {
 
-        var queryURL = "https://opentdb.com/api.php?amount=20&category=12&type=multiple";
+        // Show Question Div
+        $("#questions").show();
 
-        var question = $("<table><tr>");
+        counter = setInterval(timer, 1000);
+
+        var queryURL = "https://opentdb.com/api.php?amount=20&category=12&type=multiple";
 
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function (response) {
 
-            console.log(response.results.length);
-
             // Loop through all questions
             for (var i = 0; i < response.results.length; i++) {
 
-                var questionDiv = $("<div>");
-                questionDiv = $("<div id='question'>" + response.results[i].question + "</div>");
+                // Add questions to the div
+                var questionDiv = $("<div id='question'>" + response.results[i].question + "</div>");
+                $("#questions").append(questionDiv);
 
-                //console.log(response.results[i].incorrect_answers);
-
+                // Answers Array
                 var answers = [];
-                answers.push(response.results[i].incorrect_answers);
+
+                // Add the incorrect answer to the answer array
+                for (arr in response.results[i].incorrect_answers) {
+
+                    answers.push(response.results[i].incorrect_answers[arr]);
+                }
+                //console.log("incorrect " + answers);
+
+                // Add the correct answer to the answer array 
                 answers.push(response.results[i].correct_answer);
-                //console.log("xxx " + answers);
-                shuffle(answers);
-                //console.log("yyy " + answers);
+                //console.log("correct " + answers);
 
+                // Shuffle the answers array
+                answers = shuffle(answers);
+                //console.log("shuffle " + answers);
 
-                var answerDiv = $("<div>");
+                // Add multiple choice answers to Div
+                for (var j = 0; j < answers.length; j++) {
 
-                for (var j=0; j < answers.length; j++) {
-
-                    if(response.results[i].correct_answer == answers[j]){
+                    if (response.results[i].correct_answer == answers[j]) {
                         // Correct Answer
                         answer = "correct_answer";
-                    }
-                    else{
+                    } else {
                         // Incorrect Answer
                         answer = "incorrect_answer";
                     }
-                    answerDiv = $("<label><input type='radio' name=q" + i + "value=" + answer + "/>"+ response.results[j].question +"</label>");
+                    $("#questions").append($("<label id='answer'><input type='radio' name=q" + i + "value=" + answer + "/>" + answers[j] + "</label>"));
                 }
-
-                //question = $()
-                $("#questions").append(questionDiv);
             }
+
+            //     // $("#triviaBox").height("1750px");
+            //     // $("#triviaBox").css({ 'margin-top': '220px' });
+            //     // $("#triviaBox").css({ 'margin-bottom': '100px' });
+
+
         });
     }
 
@@ -73,5 +91,15 @@ $(document).ready(function () {
         return a;
     }
 
-
+    // TImer
+    function timer() {
+        count = count - 1;
+        if (count <= 0) {
+            clearInterval(counter);
+            //counter ended, do something here
+            return;
+        }
+        //Do code for showing the number of seconds here
+        $("#timer span").html(count);
+    }
 });

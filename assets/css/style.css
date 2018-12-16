@@ -7,9 +7,7 @@ body {
 #triviaBox {
     position: absolute;
     background-color: #fff17a;
-    border-style: solid;
-    border-width: 2px;
-    width: 800px;
+    width: 1000px;
     height: 500px;
     margin: auto;
     top: 0;
@@ -47,12 +45,43 @@ body {
     cursor: pointer;
 }
 
-/* #questions {
-    font-weight: bold;
-    font-size: 20px;
-} */
+#container {
+    position: absolute;
+    background-color: #fff17a;
+    width: 1000px;
+    height: 500px;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    text-align: center;
+}
 
-#question {
+#timer {
+    position: absolute;
+    margin-top: 100px;
+    height: 20px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-size: 30px;
+}
+
+#questions {
+    position: absolute;
+    margin-top: 180px;
+    /* height: 20px; */
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-size: 20px;
     font-weight: bold;
-    font-size: 18px;
+}
+
+#answer {
+    font-size: 14px;
+    padding-bottom: 30px;
 }
