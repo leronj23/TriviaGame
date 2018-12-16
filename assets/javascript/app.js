@@ -25,7 +25,7 @@ $(document).ready(function () {
 
         counter = setInterval(timer, 1000);
 
-        var queryURL = "https://opentdb.com/api.php?amount=20&category=12&type=multiple";
+        var queryURL = "https://opentdb.com/api.php?amount=10&category=12&type=multiple";
 
         $.ajax({
             url: queryURL,
@@ -36,7 +36,7 @@ $(document).ready(function () {
             for (var i = 0; i < response.results.length; i++) {
 
                 // Add questions to the div
-                var questionDiv = $("<div id='question'>" + response.results[i].question + "</div>");
+                var questionDiv = $("<div id='question'>" + response.results[i].question + "</div>").css('paddingTop', '40px');;
                 $("#questions").append(questionDiv);
 
                 // Answers Array
@@ -71,8 +71,8 @@ $(document).ready(function () {
                 }
             }
 
-            //     // $("#triviaBox").height("1750px");
-            //     // $("#triviaBox").css({ 'margin-top': '220px' });
+            $("#triviaBox").height("1000px").css({ 'margin-top': '220px' });
+            //$("#triviaBox").css({ 'margin-top': '220px' });
             //     // $("#triviaBox").css({ 'margin-bottom': '100px' });
 
 

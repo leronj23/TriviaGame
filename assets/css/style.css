@@ -71,17 +71,14 @@ body {
 
 #questions {
     position: absolute;
-    margin-top: 180px;
-    /* height: 20px; */
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    width: 1000px;
+    height: 1500px;
+    margin-top: 160px;
     font-size: 20px;
     font-weight: bold;
+    text-align: center;
 }
 
 #answer {
     font-size: 14px;
-    padding-bottom: 30px;
 }
