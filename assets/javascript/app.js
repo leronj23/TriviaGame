@@ -1,7 +1,16 @@
 $(document).ready(function () {
 
+    // Hide Timer
+    $("#timer").hide();
+
     // Hide Question Div
     $("#questions").hide();
+
+    // Hide Done Button
+    $("#doneBtn").hide();
+
+    // Hide Results Div
+    $("#results").hide();
 
     // Start button click
     $("#startBtn").click(function () {
@@ -9,22 +18,27 @@ $(document).ready(function () {
         // Hide Start Button
         $("#startBtn").hide();
 
+        // Show Timer
+        $("#timer").show();
+
         // Load Trivia Questions
         loadTrivia();
     });
 
-    // Timer
+    // Timer vars
     var count = 30;
     var counter = 0;
 
     // Load Trivia Questions
     function loadTrivia() {
 
-        // Show Question Div
+        // Show Question div
         $("#questions").show();
 
+        // Start Timer
         counter = setInterval(timer, 1000);
 
+        // API call to Music Trivia
         var queryURL = "https://opentdb.com/api.php?amount=10&category=12&type=multiple";
 
         $.ajax({
@@ -36,7 +50,7 @@ $(document).ready(function () {
             for (var i = 0; i < response.results.length; i++) {
 
                 // Add questions to the div
-                var questionDiv = $("<div id='question'>" + response.results[i].question + "</div>").css('paddingTop', '40px');;
+                var questionDiv = $("<div id='question'>" + response.results[i].question + "</div>").css("paddingTop", "40px");;
                 $("#questions").append(questionDiv);
 
                 // Answers Array
@@ -67,16 +81,64 @@ $(document).ready(function () {
                         // Incorrect Answer
                         answer = "incorrect_answer";
                     }
-                    $("#questions").append($("<label id='answer'><input type='radio' name=q" + i + "value=" + answer + "/>" + answers[j] + "</label>"));
+
+                    // Add Radio buttons
+                    $("#questions").append($("<label id='answer'><input type='radio' name=q" + i + " value=" + answer + ">" + answers[j] + "</label>").css('paddingRight', '20px'));
                 }
             }
 
-            $("#triviaBox").height("1000px").css({ 'margin-top': '220px' });
-            //$("#triviaBox").css({ 'margin-top': '220px' });
-            //     // $("#triviaBox").css({ 'margin-bottom': '100px' });
-
-
+            // Show Done button
+            $("#doneBtn").show();
         });
+    }
+
+    // Done button click
+    $("#doneBtn").click(function () {
+
+        // Show Result page
+        showResults();
+    });
+
+    // Show Result page
+    function showResults() {
+
+        var correct = 0;
+        var incorrect = 0;
+        var unanswered = 0;
+
+        for (var i = 0; i < 10; i++) {
+
+            if ($("input[name=q" + i + "]:checked").val() === "correct_answer") {
+
+                correct++;
+            }
+            else if ($("input[name=q" + i + "]:checked").val() === "incorrect_answer") {
+
+                incorrect++;
+            }
+            else {
+
+                unanswered++;
+            }
+        }
+
+        // Hide Timer
+        $("#timer").hide();
+        clearInterval(counter);
+
+        // Hide Question div
+        $("#questions").hide();
+
+        // Hide Done button
+        $("#doneBtn").hide();
+
+        // Hide Results div
+        $("#results").show();
+
+        // Update Result div
+        $("#correct span").html(correct);
+        $("#incorrect span").html(incorrect);
+        $("#unanswered span").html(unanswered);
     }
 
     /**
@@ -91,15 +153,17 @@ $(document).ready(function () {
         return a;
     }
 
-    // TImer
+    // Timer
     function timer() {
         count = count - 1;
         if (count <= 0) {
             clearInterval(counter);
-            //counter ended, do something here
+
+            // Counter is over. Show results page
+            showResults();
             return;
         }
-        //Do code for showing the number of seconds here
+        // Update counter
         $("#timer span").html(count);
     }
 });
